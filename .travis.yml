@@ -20,10 +20,10 @@ addons:
 
 install:
   # Install Ansible.
-  - pip install $ANSIBLE_VERSION
+  - pip install ansible==$ANSIBLE_VERSION
 
   # Install the other required Python libraries.
-  - pip install -r tests/requirements.txt
+  #- pip install -r tests/requirements.txt
 
   # Print the Ansible version to the log.
   - ansible --version
