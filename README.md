@@ -1,20 +1,25 @@
-# LDAP Modules for Ansible (Fork)
+# Ansible LDAP Modules
 
-## Fork version
+![Travis CI Build Status](https://travis-ci.org/karlmdavis/ansible-role-ldap.svg)
 
-[ansible-role-ldap](https://github.com/mkouhei/ansible-role-ldap) is published on the [Ansible Galaxy](https://galaxy.ansible.com/detail#/role/6652) that forked by Kouhei Maeda.
-The original is [ansible-ldap](https://bitbucket.org/psagers/ansible-ldap) by Peter Sagerson.
+This project provides a pair of [Ansible](http://www.ansible.com) modules for manipulating an LDAP directory. The [`ldap_entry`](./ldap-entry) module can be used to create/delete LDAP entries and the [`ldap_attr`](./ldap_attr) module can then be used to manage those entries' attributes.
 
-## About
+Unless/until these modules makes their way upstream into Ansible, the documentation for them is only available embedded in their code (see the link for each, above).
 
-This project contains a pair of [Ansible](http://www.ansible.com/home) modules
-for manipulating an LDAP directory. `ldap_entry` can be used to ensure that an
-entire entry exists and `ldap_attr` can be used to ensure the values of an
-entry's attributes.
+These modules are published on [Ansible Galaxy](https://galaxy.ansible.com) here: TODO. They can be installed from there by TODO.
 
-Regrettably, Ansible does not have any sensible mechanism for packaging and
-distributing third-party modules with rendered documentation and runnable unit
-tests. The LDAP modules do have complete documentation strings embedded.
+Requirements
+------------
 
-I find these modules useful for one of my deployments and I welcome anyone else
-to use or distribute them under the BSD license.
+This role supports Ansible 2 and later. For the specific versions that it's tested against, see the values for "`ANSIBLE_VERSION`" towards the top of [.travis.yml](./.travis.yml).
+
+License
+-------
+
+[BSD](./LICENSE) and public domain (as the changes exclusive to this fork were written by US federal government employees, partially during work hours).
+
+Author Information
+------------------
+
+This fork was authored by Karl M. Davis (https://justdavis.com/karl/), but the vast bulk of the work originally came from [ansible-ldap](https://bitbucket.org/psagers/ansible-ldap) by Peter Sagerson.
+
