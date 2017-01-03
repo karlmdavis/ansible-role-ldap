@@ -31,6 +31,9 @@ install:
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
+  # Ensure that the test script can find the modules to test.
+  - ln -s ./library tests/library
+
 script:
   # Basic test script syntax check.
   - ansible-playbook tests/test.yml --inventory-file=tests/inventory --syntax-check
