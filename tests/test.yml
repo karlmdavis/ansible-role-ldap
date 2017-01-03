@@ -1,0 +1,78 @@
+---
+- hosts: localhost
+  vars:
+
+    - ldap_root_password: 'notsecureanddoesnotmatter'
+
+  tasks:
+
+    - debconf: name=slapd question='slapd/domain' value='example' vtype='string'
+      become: true
+    - debconf: name=slapd question='shared/organization' value='Example Org' vtype='string'
+      become: true
+    - debconf: name=slapd question='slapd/backend' value='HDB' vtype='string'
+      become: true
+    - debconf: name=slapd question='slapd/password1' value="{{ ldap_root_password }}" vtype='password'
+      become: true
+    - debconf: name=slapd question='slapd/password2' value="{{ ldap_root_password }}" vtype='password'
+      become: true
+
+    - name: Install LDAP and Friends
+      apt: name={{ item }} update_cache=true cache_valid_time="{{ 60 * 15 }}"
+      with_items:
+        - slapd
+        - db-util
+        - python-ldap
+        - ldap-utils
+      become: true
+
+    - name: Create LDAP OU
+      ldap_entry: 
+        bind_dn: 'cn=admin,dc=example,dc=com'
+        bind_pw: "{{ ldap_root_password }}"
+        dn: 'ou=foo,dc=example,dc=com'
+        objectClass: ['organizationalUnit']
+
+    - name: Create LDAP User Account
+      ldap_entry:
+        bind_dn: 'cn=admin,dc=example,dc=com'
+        bind_pw: "{{ ldap_root_password }}"
+        dn: 'uid=bar,ou=foo,dc=example,dc=com'
+        objectClass: ['inetOrgPerson', 'posixAccount']
+        uid: 'bar'
+        cn: 'Bar Fizz'
+        displayName: 'Bar Fizz'
+        givenName: 'Bar'
+        sn: 'Fizz'
+        uidNumber: '10000'
+        gidNumber: '10000'
+        userPassword: 'doesnotmatter'
+        loginShell: '/bin/bash'
+        homeDirectory: '/home/bar'
+        mail: 'bar@example.com'
+
+    - name: Create LDAP Group
+      ldap_entry:
+        bind_dn: 'cn=admin,dc=example,dc=com'
+        bind_pw: "{{ ldap_root_password }}"
+        dn: 'cn=buzz,ou=foo,dc=justdavis,dc=com'
+        objectClass: 'groupOfNames'
+        cn: 'buzz'
+        member:
+          - 'uid=bar,ou=foo,dc=justdavis,dc=com'
+
+    - name: Update LDAP Account
+      ldap_attr:
+        bind_dn: 'cn=admin,dc=example,dc=com'
+        bind_pw: "{{ ldap_root_password }}"
+        dn: 'uid=bar,ou=foo,dc=example,dc=com'
+        state: exact
+        name: mail
+        values: 'bar2@example.com'
+
+    - name: Verify LDAP Search
+      command: sudo ldapsearch -Y EXTERNAL -H ldapi:/// -b dc=example,dc=com
+      register: ldap_search_result
+      failed_when: "ldap_search_result.rc = 0 and 'bar2@example.com' in ldap_search_result.stdout"
+      tags: test
+
