@@ -73,6 +73,6 @@
     - name: Verify LDAP Search
       command: sudo ldapsearch -Y EXTERNAL -H ldapi:/// -b dc=example,dc=com
       register: ldap_search_result
-      failed_when: "ldap_search_result.rc = 0 and 'bar2@example.com' in ldap_search_result.stdout"
+      failed_when: "ldap_search_result.rc != 0 or 'bar2@example.com' not in ldap_search_result.stdout"
       tags: test
 
