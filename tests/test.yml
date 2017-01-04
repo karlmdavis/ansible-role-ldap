@@ -13,8 +13,10 @@
     - debconf: name=slapd question='slapd/backend' value='HDB' vtype='string'
       become: true
     - debconf: name=slapd question='slapd/password1' value="{{ ldap_root_password }}" vtype='password'
+      changed_when: false
       become: true
     - debconf: name=slapd question='slapd/password2' value="{{ ldap_root_password }}" vtype='password'
+      changed_when: false
       become: true
 
     - name: Install LDAP and Friends
