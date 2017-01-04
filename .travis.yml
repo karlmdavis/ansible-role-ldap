@@ -32,7 +32,7 @@ install:
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
   # Ensure that the test script can find the modules to test.
-  - ln -rs ./library ./tests/library
+  - cd tests && ln -s ../library library && cd ..
 
 script:
   # Basic test script syntax check.
