@@ -6,7 +6,7 @@
 
   tasks:
 
-    - debconf: name=slapd question='slapd/domain' value='example' vtype='string'
+    - debconf: name=slapd question='slapd/domain' value='example.com' vtype='string'
       become: true
     - debconf: name=slapd question='shared/organization' value='Example Org' vtype='string'
       become: true
