@@ -34,6 +34,9 @@ install:
   # Ensure that the test script can find the modules to test.
   - ln -s ./library tests/library
 
+  # Print the current directory out, for debugging purposes.
+  - pwd && ls . tests/ tests/library
+
 script:
   # Basic test script syntax check.
   - ansible-playbook tests/test.yml --inventory-file=tests/inventory --syntax-check
