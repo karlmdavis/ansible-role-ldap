@@ -32,7 +32,7 @@ install:
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
   # Ensure that the test script can find the modules to test.
-  - ln -s ./library tests/library
+  - ln -s "$(pwd)/library" "$(pwd)/tests/library"
 
   # Print the current directory out, for debugging purposes.
   - pwd && ls . tests/ tests/library
