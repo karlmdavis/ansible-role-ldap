@@ -55,11 +55,11 @@
       ldap_entry:
         bind_dn: 'cn=admin,dc=example,dc=com'
         bind_pw: "{{ ldap_root_password }}"
-        dn: 'cn=buzz,ou=foo,dc=justdavis,dc=com'
+        dn: 'cn=buzz,ou=foo,dc=example,dc=com'
         objectClass: 'groupOfNames'
         cn: 'buzz'
         member:
-          - 'uid=bar,ou=foo,dc=justdavis,dc=com'
+          - 'uid=bar,ou=foo,dc=example,dc=com'
 
     - name: Update LDAP Account
       ldap_attr:
