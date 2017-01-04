@@ -6,12 +6,14 @@ This project provides a pair of [Ansible](http://www.ansible.com) modules for ma
 
 Unless/until these modules makes their way upstream into Ansible, the documentation for them is only available embedded in their code (see the link for each, above).
 
-These modules are published on [Ansible Galaxy](https://galaxy.ansible.com) here: TODO. They can be installed from there by TODO.
+These modules are published on [Ansible Galaxy](https://galaxy.ansible.com) here: <https://galaxy.ansible.com/karlmdavis/ansible-role-ldap/>. They can be installed from there by running a command such as the following:
+
+    $ ansible-galaxy install karlmdavis.ansible-role-ldap
 
 Requirements
 ------------
 
-This role supports Ansible 2 and later. For the specific versions that it's tested against, see the values for "`ANSIBLE_VERSION`" towards the top of [.travis.yml](./.travis.yml).
+This role supports Ansible 2 and later. For the specific versions that it's tested against, see the values for "`ANSIBLE_VERSION`" towards the top of [.travis.yml](./.travis.yml). They should work on any Linux platform, but are only automatically tested on Ubuntu 12.04 (as that's what Travis CI provides).
 
 License
 -------
