@@ -201,7 +201,7 @@ class LdapAttr(object):
         if not (isinstance(values, list) and all(isinstance(value, basestring) for value in values)):
             self.module.fail_json(msg="values must be a string or list of strings.")
 
-        return map(self._force_utf8, values)
+        return list(map(self._force_utf8, values))
 
     def _force_utf8(self, value):
         """ If value is unicode, encode to utf-8. """
